@@ -35,7 +35,16 @@ app.get("/api/:date?", (req, res) => {
   return res.json({"unix": dateVal.getTime(), "utc": dateVal.toUTCString()});
 });
 
-
+/*
+log of test run byfcc
+date --  2016-12-25  --  false  --  1482624000000
+date --  2016-12-25  --  false  --  1482624000000
+date --  1451001600000  --  true  --  NaN
+date --  05 October 2011, GMT  --  false  --  1317772800000
+date --  this-is-not-a-date  --  false  --  NaN
+date --  undefined  --  false  --  NaN
+date --  undefined  --  false  --  NaN
+*/
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
