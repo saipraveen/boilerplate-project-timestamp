@@ -24,15 +24,15 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get("/api/:date", (req, res) => {
-  console.log(req.params);
-  const { date } = req.params;
-  console.log('reqDate -- ', date);
+app.get("/api/:date?", (req, res) => {
+  let { date } = req.params;
+  console.log('date -- ', date, ' -- ',/^[0-9]+$/.test(date), ' -- ', Date.parse(date));
+  if(/^[0-9]+$/.test(date))
+    date = Number(date);
   const dateVal = (date) ? new Date(date) : new Date();
-  console.log('dateVal -- ', dateVal);
-  if(dateVal === 'Invalid Date')
-    res.json({"error": "Invalid Date"});
-  res.json({"unix": dateVal.getTime(), "utc": dateVal.toUTCString()});
+  if(isNaN(dateVal))
+    return res.json({"error": "Invalid Date"});
+  return res.json({"unix": dateVal.getTime(), "utc": dateVal.toUTCString()});
 });
 
 
